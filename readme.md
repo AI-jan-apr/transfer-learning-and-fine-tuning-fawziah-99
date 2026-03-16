@@ -1,62 +1,118 @@
-[![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-22041afd0340ce965d47ae6ef1cefeee28c7c493a6346c4f15d667ab976d596c.svg)](https://classroom.github.com/a/DtxdB3_i)
-## 🧠 Task Overview
+# Food Image Classification with EfficientNetB0
 
-You will apply **Transfer Learning** using **EfficientNet** models with two approaches:  
-1. **Feature Extraction**  
-2. **Fine-tuning**
+This project applies **transfer learning** using EfficientNetB0 to classify images from the **Food dataset**.  
+Two transfer learning approaches were evaluated:
 
-⚠️ This task **must be completed in Google Colab or a cloud-based environment**. Training deep models like EfficientNet on local machines without GPU/TPU is highly inefficient and may lead to failed or incomplete experiments.
+1. **Feature Extraction**
+2. **Fine-Tuning**
+
+The goal is to compare both approaches and analyze model performance.
+
+---
+
+# Dataset
+
+The experiments use the **Food image dataset**, which contains images across **11 food categories**:
+
+- Bread
+- Dairy product
+- Dessert
+- Egg
+- Fried food
+- Meat
+- Noodles-Pasta
+- Rice
+- Seafood
+- Soup
+- Vegetable-Fruit
+
+Dataset splits:
+
+| Split | Images |
+|------|------|
+Training | 9866 |
+Validation | 3430 |
+Test | 3347 |
+
+Images were resized to **224 × 224** before being fed into the model.
+
+---
+
+# Model
+
+The base architecture used is **EfficientNetB0.
+
+---
+
+# Experiment 1 — Feature Extraction
+
+In this experiment, the EfficientNetB0 base model was used as a **fixed feature extractor**.
+
+All pretrained layers were **frozen**, and only the classification head was trained on the dataset.
+
+### Training Results
+
+- Train accuracy increased from **0.7166 → 0.8833**
+- Validation accuracy improved from **0.8294 → ~0.875**
+
+Both training and validation loss decreased steadily during training.
+
+### Metrics Plot
+
+![Feature Extraction](images/output1.png)
 
 
+---
 
-## 📁 Dataset
+# Experiment 2 — Fine-Tuning
 
-Dataset is already downloaded and loaded in the notebook. Preprocess as needed for training.
+In this experiment, the last layers of EfficientNetB0 were **unfrozen** and retrained using a **smaller learning rate**.
 
+This allows the pretrained network to adapt its features to the target dataset.
 
+### Training Results
 
-## 🧪 Experiments
+- Train accuracy improved from **0.8636 → 0.8950**
+- Validation accuracy improved from **0.8851 → 0.8933**
 
-### 1️⃣ Feature Extraction  
-- freeze all base layers  
-- train only the classification head  
+Both training and validation loss decreased consistently.
 
-### 2️⃣ Fine-tuning  
-- unfreeze last layers  
-- retrain full or partial base  
+### Metrics Plot
 
-You can enhance fine-tuning with these techniques:
+![Fine Tuning](images/output2.png)
 
-- **Unfreeze only last *n* layers**  
-  gradually increase trainable layers instead of full base model
+---
 
-- **Gradual unfreezing**  
-  unfreeze layers one block at a time across training epochs
+# Observations
 
-- **Layer-wise learning rate decay**  
-  assign smaller LR to earlier layers and higher LR to deeper layers
+### Feature Extraction vs Fine-Tuning
 
-For each:
-- document model version  
-- include training/validation metrics  
-- write your analysis
+Feature extraction already achieved strong performance by using pretrained EfficientNetB0 features without updating the base network.
 
+Fine-tuning further improved the model by unfreezing the last layers of the network and allowing them to adapt to the Food dataset.
 
+Although the improvement is moderate, it shows that updating deeper layers helps the model learn more visual patterns.
 
-## 🧬 Bonus (Optional)
+---
 
-- use **DagsHub** to upload and manage dataset in a cloud bucket  
-- track all runs using **MLflow**:
-  - versioned experiments  
-  - parameters, metrics, artifacts  
+### Generalization
 
-## 📝 README Must Include:
+Both experiments demonstrated good generalization.  
+The training and validation curves remained close.
+---
 
-- experiment summary  
-- plots for metrics  
-- observations on:
-  - feature extract vs fine-tune  
-  - generalization, convergence, overfitting 
+### Convergence
+
+Training curves show smooth and stable convergence.  
+Accuracy increased gradually while loss decreased consistently across epochs.
+
+---
+
+### Overfitting
+
+No strong signs of overfitting were observed.  
+Training and validation metrics remained close throughout training and validation loss continued to decrease.
+
 
 ## 🔗 Helpful Links
 
