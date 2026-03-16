@@ -59,7 +59,7 @@ Both training and validation loss decreased steadily during training.
 
 ### Metrics Plot
 
-![Feature Extraction](images/output1.png)
+![Feature Extraction](images/output.png)
 
 
 ---
