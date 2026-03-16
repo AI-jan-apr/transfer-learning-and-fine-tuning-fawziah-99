@@ -40,7 +40,7 @@ Images were resized to **224 × 224** before being fed into the model.
 
 # Model
 
-The base architecture used is **EfficientNetB0.
+The base architecture used is **EfficientNetB0**.
 
 ---
 
