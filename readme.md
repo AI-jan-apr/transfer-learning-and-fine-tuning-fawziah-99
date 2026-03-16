@@ -97,8 +97,7 @@ Although the improvement is moderate, it shows that updating deeper layers helps
 
 ### Generalization
 
-Both experiments demonstrated good generalization.  
-The training and validation curves remained close.
+Both experiments demonstrated good generalization. The training and validation curves remained close.
 ---
 
 ### Convergence
